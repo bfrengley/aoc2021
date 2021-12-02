@@ -2,8 +2,6 @@
 
 (provide with-day zip stream-zip)
 
-(require racket/file)
-
 (define (with-day day fn)
   (let* ([filename (string-append "day" (number->string day) ".txt")]
          [filepath (build-path (current-directory) "input" filename)])

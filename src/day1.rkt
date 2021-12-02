@@ -2,7 +2,8 @@
 
 (require "util.rkt")
 
-(define (parse in) (stream-map string->number (sequence->stream(in-lines in))))
+(define (parse in)
+  (stream-map string->number (sequence->stream (in-lines in))))
 
 (define (part-1)
   (with-day 1
