@@ -33,20 +33,19 @@
         ; return when we have a single match
         (first bitsets)
         ; otherwise filter and recur
-        ; this loops through the bitsets twice and drops n each time, yuck
-        (let* ([bit-count  (for/sum ([bs bitsets]) (if (= bit0 (first (drop bs n))) -1 1))]
+        (let* ([bit-count  (for/sum ([bs bitsets]) (if (= bit0 (vector-ref bs n)) -1 1))]
                [common-bit (if (to-1? bit-count) bit1 bit0)]
-               [matches    (filter (λ (bs) (= common-bit (first (drop bs n)))) bitsets)])
+               [matches    (filter (λ (bs) (= common-bit (vector-ref bs n))) bitsets)])
           (loop matches (+ n 1)))))
   (loop bitsets 0))
 
 (define (bytes->integer bytes)
-  (string->number (bytes->string/utf-8 (list->bytes bytes)) 2))
+  (string->number (bytes->string/utf-8 (list->bytes (vector->list bytes))) 2))
 
 (define (part-2)
   (with-day 3
     (λ (in)
-      (let* ([bitsets    (map bytes->list (port->bytes-lines in))]
+      (let* ([bitsets    (map (compose1 list->vector bytes->list) (port->bytes-lines in))]
              [o2-match   (find-bit-match bitsets (λ (b) (>= b 0)))]
              [co2-match  (find-bit-match bitsets (λ (b) (< b 0)))])
         (*
