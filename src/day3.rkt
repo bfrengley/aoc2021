@@ -47,7 +47,7 @@
     (λ (in)
       (let* ([bitsets    (map (compose1 list->vector bytes->list) (port->bytes-lines in))]
              [o2-match   (find-bit-match bitsets (λ (b) (>= b 0)))]
-             [co2-match  (find-bit-match bitsets (λ (b) (<= b 0)))])
+             [co2-match  (find-bit-match bitsets (λ (b) (< b 0)))])
         (*
          (bytes->integer o2-match)
          (bytes->integer co2-match))))))
