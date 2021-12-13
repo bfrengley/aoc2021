@@ -2,7 +2,7 @@
 
 if ! raco pkg show | grep threading >/dev/null 2>&1; then
     echo "Installing deps..."
-    raco pkg install threading --auto
+    raco pkg install --auto threading
 fi
 
 for (( day=1; day <= 25; day++ )); do
@@ -13,4 +13,3 @@ for (( day=1; day <= 25; day++ )); do
     echo "--> Day $day"
     racket ./src/day"$day".rkt
 done
-
