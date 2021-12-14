@@ -32,7 +32,7 @@
       (for ([x (in-inclusive-range 0 max-x)])
         (display (if (set-member? paper (pos x y))
                      "#"
-                     ".")))
+                     " ")))
       (displayln ""))))
 
 (module+ main
